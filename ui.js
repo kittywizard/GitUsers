@@ -9,7 +9,7 @@ class UI {
                 <div class="row">
                     <div class="col-md-3">
                         <img src="${user.avatar_url}" class="img-fluid mb-2">
-                        <a href="${user.html_url}" target="_blank" class="btn btn-primary btn-block">View Profile</a>
+                        <a href="${user.html_url}" target="_blank" class="btn btn-primary btn-block mb-4">View Profile</a>
                     </div>
 
                     <div class="col-md-9">
@@ -40,5 +40,44 @@ class UI {
             <div id="repos"></div>
 
         `
+    }
+    //clear out profile html
+    clearProfile(){
+        this.profile.innerHTML = '';
+    }
+
+    //show alert message in case of error
+    showAlert(message, className){
+
+        //clear any remaining alerts
+        this.clearAlert();
+
+        //div
+        const div = document.createElement('div');
+        div.className = className;
+
+        //add text
+        div.appendChild(document.createTextNode(message));
+        
+        //get parent
+        const container = document.querySelector('.searchContainer');
+
+        //get search box
+        const search = document.querySelector('.search');
+
+        //insert alert
+        container.insertBefore(div, search);
+
+        //timeout after 3 seconds
+        setTimeout(() => {
+            this.clearAlert();
+        }, 3000);
+    }
+
+    clearAlert() {
+        const currentAlert = document.querySelector('.alert');
+        if(currentAlert){
+            currentAlert.remove();
+        }
     }
 }
